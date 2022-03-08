@@ -10,38 +10,25 @@ import Button from '@material-ui/core/Button';
 
 const demoContent = [
 
-  { id: '3', status: 'ordered', details: 'water', order: 123 },
-  { id: '4', status: 'ready', details: 'pizza diabolo', order: 234 },
-  { id: '5', status: 'ordered', details: 'pizza-burgerito', order: 345 },
-  { id: '6', status: 'new', details: 'pizza hawaii x2 / pizz-burgetito extra onion', order: 456 },
-  { id: '1', status: 'new', details: 'pizza margeritha + double cheese', order: 567 },
-  { id: '2', status: 'preparing', details: 'pizza vege', order: 678 },
-  { id: '7', status: 'new', details: 'sprite ', order: 789 },
+  { id: '3', status: 'ordered', nextStatus: 'bon apetit', details: 'water', order: 123 },
+  { id: '4', status: 'ready', nextStatus: 'ordered', details: 'pizza diabolo', order: 234 },
+  { id: '5', status: 'ordered', nextStatus: 'bon apetit', details: 'pizza-burgerito', order: 345 },
+  { id: '6', status: 'new', nextStatus: 'preparing', details: 'pizza hawaii x2 / pizza-burgetito extra onion', order: 456 },
+  { id: '1', status: 'new', nextStatus: 'preparing', details: 'pizza margeritha + double cheese', order: 567 },
+  { id: '2', status: 'preparing', nextStatus: 'ready', details: 'pizza vege', order: 678 },
+  { id: '7', status: 'new', nextStatus: 'preparing', details: 'sprite ', order: 789 },
 ];
 
-const renderActions = status => {
-  switch (status) {
+const renderActions = nextStatus => {
+  switch (nextStatus) {
     case 'new':
-      return (
-        <>
-          <Button>preparing</Button>
-        </>
-      );
     case 'preparing':
-      return (
-        <Button>ready</Button>
-      );
     case 'ready':
-      return (
-        <Button>ordered</Button>
-      );
     case 'ordered':
-      return (
-        <Button>bon apetit</Button>
-      );
-
     default:
-      return null;
+      return (
+        <Button>{nextStatus}</Button>
+      );
   }
 };
 
@@ -77,7 +64,7 @@ const Kitchen = () => (
                 {row.details}
               </TableCell>
               <TableCell>
-                {renderActions(row.status)}
+                {renderActions(row.nextStatus)}
               </TableCell>
             </TableRow>
           ))}
